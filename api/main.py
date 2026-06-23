@@ -23,6 +23,22 @@ UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
 os.makedirs("cache", exist_ok=True)
 
+_DEFAULT_ORIGINS = (
+    "http://localhost:5173,"
+    "http://127.0.0.1:5173,"
+    "http://localhost:4173"
+)
+
+
+def _cors_origins() -> list[str]:
+    raw = os.getenv("ALLOWED_ORIGINS", _DEFAULT_ORIGINS)
+    origins = [o.strip() for o in raw.split(",") if o.strip()]
+    return origins or ["*"]
+
+
+_cors = _cors_origins()
+_allow_credentials = "*" not in _cors
+
 app = FastAPI(
     title="Hiring Agent API",
     description="AI-powered resume evaluation pipeline",
@@ -31,12 +47,8 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:4173",
-    ],
-    allow_credentials=True,
+    allow_origins=_cors,
+    allow_credentials=_allow_credentials,
     allow_methods=["*"],
     allow_headers=["*"],
 )

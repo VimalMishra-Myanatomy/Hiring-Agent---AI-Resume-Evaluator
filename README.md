@@ -86,6 +86,16 @@ See [frontend/README.md](./frontend/README.md) for more details.
 
 ---
 
+## Deployment
+
+Deploy to [Render](https://render.com) using the included `render.yaml` blueprint.
+
+**Quick start:** Render Dashboard → New → Blueprint → connect this repo.
+
+Full instructions: **[DEPLOY.md](./DEPLOY.md)**
+
+---
+
 ## Architecture
 
 <table>
