@@ -15,6 +15,7 @@ from pydantic import BaseModel, Field
 
 from api.gemini_key import validate_gemini_api_key
 from api.jobs import job_store
+from pipeline import result_to_dict, run_analysis
 from prompt import GEMINI_API_KEY
 
 logger = logging.getLogger(__name__)
