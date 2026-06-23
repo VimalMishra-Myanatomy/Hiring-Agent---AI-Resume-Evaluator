@@ -19,6 +19,8 @@
 ## Contents
 
 - [Overview](#overview)
+- [Credits](#credits)
+- [Web UI & API](#web-ui--api)
 - [Architecture](#architecture)
 - [Installation and Setup](#installation-and-setup)
   - [Prerequisites](#prerequisites)
@@ -37,6 +39,50 @@
 ## Overview
 
 Hiring Agent parses a resume PDF to Markdown, extracts sectioned JSON using a local or hosted LLM, augments the data with GitHub profile and repository signals, then produces an objective evaluation with category scores, evidence, bonus points, and deductions. You can run fully local with Ollama or use Google Gemini.
+
+---
+
+## Credits
+
+This project is based on **[interviewstreet/hiring-agent](https://github.com/interviewstreet/hiring-agent)** by [HackerRank](https://www.hackerrank.com).
+
+The original repository provides the core resume-to-score pipeline (PDF parsing, LLM extraction, GitHub enrichment, and evaluation rubric). This fork extends it with:
+
+- **FastAPI backend** (`api/`, `pipeline.py`) — async analysis with progress polling
+- **React frontend** (`frontend/`) — upload UI, live pipeline progress, and evaluation dashboard
+- **Bring-your-own Gemini API key** — validated client-side, sent per request, never stored server-side
+
+Please see the [upstream repository](https://github.com/interviewstreet/hiring-agent) for the original CLI-focused documentation and contribution guidelines.
+
+---
+
+## Web UI & API
+
+### Run the backend
+
+```bash
+# Windows
+.\run_api.ps1
+
+# Or manually
+python -m uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+### Run the frontend
+
+Requires **Node.js 18+**.
+
+```bash
+# Windows
+.\run_frontend.ps1
+
+# Or manually
+cd frontend && npm install && npm run dev
+```
+
+Open http://localhost:5173 — the UI proxies `/api` to the backend on port 8000.
+
+See [frontend/README.md](./frontend/README.md) for more details.
 
 ---
 
@@ -281,4 +327,9 @@ Please read the [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines on 
 
 ## License
 
-[MIT](https://github.com/interviewstreet/hiring-agent/blob/master/LICENSE) © HackerRank
+This project is licensed under the [MIT License](./LICENSE).
+
+- Original work: © [HackerRank](https://www.hackerrank.com) ([interviewstreet/hiring-agent](https://github.com/interviewstreet/hiring-agent))
+- Modifications in this fork: © Vimal Mishra
+
+You must retain the original MIT copyright and license notice when redistributing.

@@ -18,6 +18,12 @@ from transform import (
 )
 from config import DEVELOPMENT_MODE
 
+# Windows consoles often default to cp1252; emojis in output need UTF-8.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 logger = logging.getLogger(__name__)
 
 logging.basicConfig(
